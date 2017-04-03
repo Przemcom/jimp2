@@ -1,7 +1,7 @@
 #include <iostream>
 // jebac wszystkie boty
 using namespace std;
-
+//skonczyc dodawanie i sortowanie!!!!!!!!!!!!!!!
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 class el{
 	public:
@@ -9,6 +9,7 @@ class el{
 		
 		int wart;
 		el *nast;
+		friend class lista;
 };
 
 
@@ -32,9 +33,9 @@ class lista{
 			wsk = this->pierwszy;
 			this->pierwszy = NULL;
 			while(wsk!=NULL){
-				tmp = wsk;
+				tmp = wsk->nast;
 				delete wsk;
-				wsk = tmp->nast;
+				wsk = tmp;
 			}
 		}
 		
@@ -77,30 +78,73 @@ class lista{
 	lista& operator=(lista &b){
 			cout << "Operator '=' pracuje" << endl;
 			
-			el *wsk;
+			if(this==&b){
+				return *this;
+			}
 			
-			wsk = this->pierwszy;
+			this->~lista();
+			el *wsk,*wsk2;
+			
+			wsk = b.pierwszy;
 			
 			while(wsk!=NULL){
 				el *nowy = new el;
 				nowy->nast = NULL;
-				nowy = wsk;
+				nowy->wart = wsk->wart;
+				if(this->pierwszy == NULL){
+					this->pierwszy = nowy;
+				}
+				else{
+					wsk2->nast = nowy;
+				}
+				wsk2 = nowy;
 				wsk = wsk->nast;
 				
 			}
 			
-			return b;
-		}	
+			return *this;
+		}
+		
+	lista& operator+(lista &b){
+		cout << "operator '+' pracuje" << endl;
+		
+		static lista pomocnicza;
+		
+		el *wsk,*wsk2;
+		
+		pomocnicza=*this;
+		
+		wsk = b.pierwszy;
+		wsk2 = pomocnicza.pierwszy;
+		if(wsk2!=NULL){
+			wsk2=wsk2->nast;
+		}
+		while(wsk!=NULL){
+			el *nowy = new el;
+			nowy->nast = NULL;
+			nowy->wart = wsk->wart;
+			wsk2 = nowy;
+			wsk = wsk->nast;
+			wsk2 = wsk2->nast;
+			
+		}
+		
+		return pomocnicza;
+	}	
 };
 
-
+//skonczyc dodawanie i sortowanie!!!!!!!!!!!!!!!
 int main(int argc, char** argv) {
 	
-	lista a,b;
+	lista a,b,c;
 	
 	cin>>a>>a>>a;
-	cout<<a;
-	cout<<(b=a);
+	cin>>b>>b;
+	//cout<<a;
+	//cout<<(b=a);
+	c=a+b;
+	//c=a;
+	cout<<c;
 	//a.~lista();
 	
 	//cout<<a;
