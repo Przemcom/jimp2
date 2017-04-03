@@ -98,8 +98,7 @@ class lista{
 					wsk2->nast = nowy;
 				}
 				wsk2 = nowy;
-				wsk = wsk->nast;
-				
+				wsk = wsk->nast;	
 			}
 			
 			return *this;
@@ -116,17 +115,16 @@ class lista{
 		
 		wsk = b.pierwszy;
 		wsk2 = pomocnicza.pierwszy;
-		if(wsk2!=NULL){
-			wsk2=wsk2->nast;
+		while(wsk2->nast!=NULL){
+			wsk2 = wsk2->nast;
 		}
 		while(wsk!=NULL){
 			el *nowy = new el;
 			nowy->nast = NULL;
 			nowy->wart = wsk->wart;
-			wsk2 = nowy;
+			wsk2->nast = nowy;
 			wsk = wsk->nast;
 			wsk2 = wsk2->nast;
-			
 		}
 		
 		return pomocnicza;
@@ -140,14 +138,9 @@ int main(int argc, char** argv) {
 	
 	cin>>a>>a>>a;
 	cin>>b>>b;
-	//cout<<a;
-	//cout<<(b=a);
-	c=a+b;
-	//c=a;
-	cout<<c;
-	//a.~lista();
+	cout<<(a+b);
 	
-	//cout<<a;
+	//cout<<c;
 	
 	return 0;
 }//copyright R by Fryderyk Muras & Przemyslaw Michalek 2017
