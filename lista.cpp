@@ -128,19 +128,74 @@ class lista{
 		}
 		
 		return pomocnicza;
+	}
+	
+	void sortuj(){
+		
+		el *wsk,*wsk2,*min,*tmp,*prevmin;
+		int lastmin = 0, max;
+		bool flag=false;
+		
+		
+		wsk2 = this->pierwszy;
+		
+		
+		while(wsk2!=NULL){
+			wsk = this->pierwszy;
+			max = this->pierwszy->wart;
+			min = this->pierwszy;
+			while(wsk->nast!=NULL){
+				
+				if(wsk->nast->wart < min->wart && min->wart > lastmin){
+					min = wsk->nast;
+					prevmin = wsk;
+					max = wsk->nast->wart;
+					
+					
+				}
+				wsk = wsk->nast;
+			}
+			cout<<min->wart<<" ";
+			lastmin = min->wart;
+			
+			
+			/*prevmin->nast = min->nast;
+			if(wsk2 == this->pierwszy){
+				tmp = this->pierwszy;
+				this->pierwszy = min;
+				min->nast = tmp;
+			}
+			else{
+				tmp = min;
+				min->nast = lastmin->nast;
+				lastmin->nast = min;
+				prevmin->nast = tmp->nast;
+				
+			}
+			*/
+			
+			
+			wsk2 = wsk2->nast;
+		}
+		
 	}	
 };
 
-//skonczyc dodawanie i sortowanie!!!!!!!!!!!!!!!
+
 int main(int argc, char** argv) {
 	
 	lista a,b,c;
 	
-	cin>>a>>a>>a;
-	cin>>b>>b;
-	cout<<(a+b);
+	cin>>a>>a>>a>>a;
+	//cin>>b>>b;
 	
+	//cout<<a;
+	//c=(a+b);
 	//cout<<c;
+	//cout<<b;
+	a.sortuj();
+	//cout<<a;
+
 	
 	return 0;
-}//copyright R by Fryderyk Muras & Przemyslaw Michalek 2017
+}
