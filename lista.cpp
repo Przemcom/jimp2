@@ -1,8 +1,8 @@
 #include <iostream>
-// jebac wszystkie boty
+
 using namespace std;
 //skonczyc dodawanie i sortowanie!!!!!!!!!!!!!!!
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
 class el{
 	public:
 		//konstruktor niepotrzebny
@@ -132,30 +132,31 @@ class lista{
 	
 	void sortuj(){
 		
-		el *wsk,*wsk2,*min,*tmp,*prevmin;
-		int lastmin = 0, max;
-		bool flag=false;
+		el *wsk,*wsk2,*min,*max,*tmp,*prevmin;
+		int lastmin = 0;
 		
 		
 		wsk2 = this->pierwszy;
 		
+		max = this->pierwszy;
+		prevmin = NULL;
 		
 		while(wsk2!=NULL){
 			wsk = this->pierwszy;
-			max = this->pierwszy->wart;
-			min = this->pierwszy;
-			while(wsk->nast!=NULL){
+			min = max;
+			while(wsk!=NULL){
 				
-				if(wsk->nast->wart < min->wart && min->wart > lastmin){
-					min = wsk->nast;
-					prevmin = wsk;
-					max = wsk->nast->wart;
+				if(wsk->wart < min->wart && wsk->wart > lastmin){
+					min = wsk;
 					
-					
+				}
+				if(wsk->wart > max->wart){  //jednorazowe znalezienie najwiekszego elementu
+					max = wsk;
 				}
 				wsk = wsk->nast;
 			}
 			cout<<min->wart<<" ";
+			
 			lastmin = min->wart;
 			
 			
