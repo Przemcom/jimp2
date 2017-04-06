@@ -136,60 +136,64 @@ class lista{
 		int lastmin = 0;
 		
 		
-		wsk2 = this->pierwszy;
+	
 		
 		max = this->pierwszy;
-		prevmin = NULL;
 		
+		wsk = this->pierwszy;
+		min = max;
+		while(wsk!=NULL){ //tutaj przepinam pierwszy element tak, ze zanim zaczne wlasciwa petle, na pierwszym miejscu w liscie jest najmniejszy element
+			
+			if(wsk->wart < min->wart && wsk->wart > lastmin){
+				min = wsk;
+				
+			}
+			if(wsk->wart > max->wart){  //jednorazowe znalezienie najwiekszego elementu
+				max = wsk;
+			}
+			wsk = wsk->nast;
+		}
+		if(min != this->pierwszy){
+			prevmin = this->pierwszy;
+			while(prevmin->nast != min){
+				prevmin = prevmin->nast;
+			}	
+			prevmin->nast = min ->nast;
+			tmp = this->pierwszy;
+			min->nast = tmp;
+			this->pierwszy = min;
+			
+		}
+		
+		
+		wsk2 = this->pierwszy;
 		while(wsk2!=NULL){
 			wsk = this->pierwszy;
 			min = max;
-			while(wsk!=NULL){
+			while(wsk->nast != NULL){
 				
 				if(wsk->wart < min->wart && wsk->wart > lastmin){
-					min = wsk;
-					
+					min = wsk->nast;
+					prevmin = wsk;
 				}
 				if(wsk->wart > max->wart){  //jednorazowe znalezienie najwiekszego elementu
 					max = wsk;
 				}
 				wsk = wsk->nast;
 			}
-			tmp = this->pierwszy;
-					while(tmp != NULL){
-						if(tmp->nast == min){
-							prevmin = tmp;
-						}
-						tmp = tmp->nast;
-					}
-				if(min = this->pierwszy){
-					prevmin = NULL;
-				}
-			cout<<min->wart<<" a poprzedni: "<<prevmin->wart<<endl;
-			
-			lastmin = min->wart;
-			
-			/*if(prevmin != NULL){
+			if(min != wsk2 && wsk2 != this->pierwszy){
 				prevmin->nast = min->nast;
-			}
-			
-			if(wsk2 == this->pierwszy){
 				tmp = this->pierwszy;
-				this->pierwszy = min;
-				min->nast = tmp;
+				while(tmp < min && tmp <= max){
+					tmp = tmp->nast;
+				}
+				tmp->nast = min;
+				min->nast = wsk2;
 			}
-			else{
-				tmp = min;
-				min->nast = wsk2->nast;
-				wsk2->nast = min;
-				prevmin->nast = tmp->nast;
-				
-			}
-			*/
 			
 			
 			wsk2 = wsk2->nast;
-		}
+		} 
 		
 	}	
 };
