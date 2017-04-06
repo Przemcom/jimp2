@@ -134,7 +134,7 @@ class lista{
 		
 		el *wsk,*wsk2,*min,*max,*tmp,*prevmin;
 		int lastmin = 0;
-		
+		bool flaga=false;
 		
 	
 		
@@ -176,23 +176,22 @@ class lista{
 					min = wsk->nast;
 					prevmin = wsk;
 				}
-				if(wsk->wart > max->wart){  //jednorazowe znalezienie najwiekszego elementu
-					max = wsk;
-				}
 				wsk = wsk->nast;
 			}
-			if(min != wsk2 && wsk2 != this->pierwszy){
-				prevmin->nast = min->nast;
+			
+			if(wsk2 != this->pierwszy){
 				tmp = this->pierwszy;
-				while(tmp < min && tmp <= max){
+				while(tmp->nast != wsk2){
 					tmp = tmp->nast;
 				}
-				tmp->nast = min;
-				min->nast = wsk2;
+				
 			}
+			//cout << "minimum to: " << min->wart << " prevmin to: " <<prevmin->wart << " tmp to: " <<tmp->wart<<endl;
 			
-			
+			lastmin = min->wart;
 			wsk2 = wsk2->nast;
+			
+			
 		} 
 		
 	}	
@@ -203,7 +202,7 @@ int main(int argc, char** argv) {
 	
 	lista a,b,c;
 	
-	cin>>a>>a>>a>>a;
+	cin>>a>>a>>a>>a>>a>>a>>a>>a;
 	//cin>>b>>b;
 	
 	cout<<a;
@@ -212,8 +211,8 @@ int main(int argc, char** argv) {
 	//cout<<b;
 	a.sortuj();
 	//cout<<a;
-	cout<<"sortowanie"<<endl;
-	cout<<a;
+	//cout<<"sortowanie"<<endl;
+	
 	
 	return 0;
 }
