@@ -133,10 +133,7 @@ class lista{
 	void sortuj(){
 		
 		el *wsk,*wsk2,*min,*max,*tmp,*prevmin;
-		int lastmin = 0;
-		bool flaga=false;
-		
-	
+
 		
 		max = this->pierwszy;
 		
@@ -144,7 +141,7 @@ class lista{
 		min = max;
 		while(wsk!=NULL){ //tutaj przepinam pierwszy element tak, ze zanim zaczne wlasciwa petle, na pierwszym miejscu w liscie jest najmniejszy element
 			
-			if(wsk->wart < min->wart && wsk->wart > lastmin){
+			if(wsk->wart < min->wart){
 				min = wsk;
 				
 			}
@@ -164,17 +161,16 @@ class lista{
 			this->pierwszy = min;
 			
 		}
-		lastmin = min->wart;
 		
 		wsk2 = this->pierwszy->nast;
 		
 		//cout<< *this;
 		while(wsk2!=NULL){
-			wsk = this->pierwszy->nast;
+			wsk = wsk2;
 			min = wsk2;
 			while(wsk->nast != NULL){
 				
-				if(wsk->nast->wart < min->wart && wsk->nast->wart > lastmin){
+				if(wsk->nast->wart < min->wart){
 					min = wsk->nast;
 					prevmin = wsk;
 				}
@@ -190,9 +186,6 @@ class lista{
 			}
 			//cout << "minimum to: " << min->wart << " prevmin to: " <<prevmin->wart << " tmp to: " <<tmp->wart<< " wsk2: " << wsk2->wart << " wsk: " << wsk->wart <<endl;
 			
-			
-			
-			lastmin = min->wart;
 			
 			
 			if(min != wsk2){
