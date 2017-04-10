@@ -166,13 +166,15 @@ class lista{
 		}
 		lastmin = min->wart;
 		
-		wsk2 = this->pierwszy;
+		wsk2 = this->pierwszy->nast;
+		
+		//cout<< *this;
 		while(wsk2!=NULL){
-			wsk = this->pierwszy;
-			min = max;
+			wsk = this->pierwszy->nast;
+			min = wsk2;
 			while(wsk->nast != NULL){
 				
-				if(wsk->nast->wart < min->wart && wsk->wart > lastmin){
+				if(wsk->nast->wart < min->wart && wsk->nast->wart > lastmin){
 					min = wsk->nast;
 					prevmin = wsk;
 				}
@@ -186,21 +188,26 @@ class lista{
 				}
 				
 			}
-			//cout << "minimum to: " << min->wart << " prevmin to: " <<prevmin->wart << " tmp to: " <<tmp->wart<<endl;
+			//cout << "minimum to: " << min->wart << " prevmin to: " <<prevmin->wart << " tmp to: " <<tmp->wart<< " wsk2: " << wsk2->wart << " wsk: " << wsk->wart <<endl;
 			
 			
 			
 			lastmin = min->wart;
-			wsk2 = wsk2->nast;
 			
-			if(min != wsk2 && wsk2 !=this->pierwszy && wsk2 !=NULL){
+			
+			if(min != wsk2){
 				tmp->nast = min;
-				min->nast = prevmin->nast;
+				prevmin->nast = min->nast;
 				min->nast = wsk2;
 				
 			}
 			else{
 				wsk2 = wsk2->nast;
+			}
+			
+			//cout << *this;
+			if(min->wart == max->wart){
+				wsk2 = NULL;
 			}
 			
 		} 
@@ -214,15 +221,20 @@ int main(int argc, char** argv) {
 	lista a,b,c;
 	
 	cin>>a>>a>>a>>a>>a;
-	//cin>>b>>b;
+	cin>>b>>b>>b;
 	
-	cout<<a;
-	//c=(a+b);
-	//cout<<c;
-	//cout<<b;
-	a.sortuj();
-	cout<<a;
-	//cout<<"sortowanie"<<endl;
+	
+	cout<<"lista a: "<< a << endl;
+	cout<<"lista b: "<< b << endl;
+	c = (a+b);
+	
+	cout<<"lista c: "<< c << endl;
+	
+	cout<<"sortowanie listy c "<<endl;
+	c.sortuj();
+	
+	cout<<c;
+	
 	
 	
 	return 0;
