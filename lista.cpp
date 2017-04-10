@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-//skonczyc dodawanie i sortowanie!!!!!!!!!!!!!!!
+
 
 class el{
 	public:
