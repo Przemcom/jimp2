@@ -1,7 +1,8 @@
 #include <iostream>
 using namespace std;
-
 template <class T>
+
+
 class el{
 	public:
 		//konstruktor niepotrzebny
@@ -19,13 +20,13 @@ class Macierz{
 		//Konstruktory//
 		
 		Macierz(){
-			cout << "Konstruktor bezargumentowy pracuje"<<endl;
+			cout << "Konstruktor bezargumentowy macierzy pracuje"<<endl;
 			wsk = NULL;
 			rozmiar = 0;
 		}
 		
 		Macierz(int roz){
-			cout << "Konstruktor z argumentem <roz> pracuje"<<endl;
+			cout << "Konstruktor macierzy z argumentem <roz> pracuje"<<endl;
 			rozmiar = roz;
 			wsk = new int[rozmiar*rozmiar];
 			for(int i = 0; i < rozmiar*rozmiar ; ++i){
@@ -34,7 +35,7 @@ class Macierz{
 		}
 		//konstruktor kopiujacy
 		Macierz(Macierz &macierz_zrodlowa){
-			cout << "Konstruktor kopiujacy pracuje"<<endl;
+			cout << "Konstruktor kopiujacy macierzy pracuje"<<endl;
 			rozmiar = macierz_zrodlowa.rozmiar;
 			wsk = new int[rozmiar*rozmiar];
 			
@@ -43,7 +44,7 @@ class Macierz{
 			}
 		}
 		~Macierz(){
-			cout << "Destruktor pracuje"<< endl;
+			cout << "Destruktor macierzy pracuje"<< endl;
 			if(wsk != NULL){
 				delete[] wsk;
 				wsk = 0;
@@ -54,10 +55,13 @@ class Macierz{
 		//                  uzywamy tylko nalezyty ostream &s
 		friend ostream& operator<<(ostream &s, Macierz &obiekt1){
 			for(int i = 0; i < obiekt1.rozmiar*obiekt1.rozmiar; ++i){
-				s << obiekt1.wsk[i]<<" ";
+				s << obiekt1.wsk[i];
 				
 				if (i % obiekt1.rozmiar == obiekt1.rozmiar - 1){
 					s << endl;
+				}
+				else{
+					s << " ";
 				}
 			}
 			cout << endl;
@@ -145,10 +149,10 @@ class Macierz{
 		
 		int operator<(Macierz &b){
 			int suma_a = 0, suma_b = 0;
-			for(int i=0; i < rozmiar; ++i){
+			for(int i=0; i < rozmiar * rozmiar; ++i){
 				suma_a += wsk[i];
 			}
-			for(int i=0; i < b.rozmiar; ++i){
+			for(int i=0; i < b.rozmiar * b.rozmiar; ++i){
 				suma_b += b.wsk[i];
 			}
 			if(suma_a < suma_b){
@@ -161,10 +165,10 @@ class Macierz{
 		
 		int operator>(Macierz &b){
 			int suma_a = 0, suma_b = 0;
-			for(int i=0; i < rozmiar; ++i){
+			for(int i=0; i < rozmiar * rozmiar; ++i){
 				suma_a += wsk[i];
 			}
-			for(int i=0; i < b.rozmiar; ++i){
+			for(int i=0; i < b.rozmiar * b.rozmiar; ++i){
 				suma_b += b.wsk[i];
 			}
 			if(suma_a > suma_b){
