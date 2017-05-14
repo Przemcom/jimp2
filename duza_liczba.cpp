@@ -98,9 +98,9 @@ class duza_liczba{
 		
 		duza_liczba& operator+(duza_liczba &b){
 			
-			int rozmiar,tmpa = this->r - 1,tmpb = b.r - 1, x, y, z, *tab, popr;
-			bool dycha = false, poprawka = false;
-			char temp;
+			int rozmiar, mniejszy, i, j, k;
+			bool dycha = false;
+			char *temp, *tempmin;
 			static duza_liczba wynik;
 			
 			
@@ -109,136 +109,133 @@ class duza_liczba{
 			if(wynik.r != 0){
 				wynik.~duza_liczba();
 			}
-			
+			//*******************ustawiam wskazniki na krotsza i dluzsza liczbe**************************
 			if(this->r > b.r){
 				rozmiar = this->r;
+				mniejszy = b.r;
+				temp = this->wsk;
+				tempmin = b.wsk;
 			}
 			else{
 				rozmiar = b.r;
+				mniejszy = this->r;
+				temp = b.wsk;
+				tempmin = this->wsk;
 			}
+			//____________________________________________________________________________________________
+			
 			
 			wynik.wsk = new char[rozmiar + 1];
-			wynik.r = rozmiar+1;
-			//tab = new int[rozmiar +1];
+			wynik.r = rozmiar + 1;
 			
-			for(int i = rozmiar; i>0; --i){
-				
-				/*if (tmpa < 0){  //znaczy, ¿e koniec liczby
-					x = 0;
-				}
-				else{
-					x = this->wsk[tmpa] - 48;
-				}
-				
-				if (tmpb < 0){
-					y = 0;
-				}
-				else{
-					y = b.wsk[tmpb] - 48;
-				}
-				
-				
-				if(dycha){  //przesuniecie o 10
-					x++;
-					dycha = false;
-				}
-				if(x+y > 9){
-					dycha = true;
-					x-=10;
-				}
-				z = x+y;
-				//z = static_cast<char>(z);
-				//temp = static_cast<char>(z);
-				//tab[i] = z;
-				
-				wynik.wsk[i] = z;
-				*/
-				//cout << char(z) << " ";
-				
-				//cout << wynik.wsk[i] << " ";
-				//cout << temp << " ";
-				
-				
-				if(tmpa >= 0 && tmpb >= 0){
-					wynik.wsk[i] = ((this->wsk[tmpa] + b.wsk[tmpb] - 96) % 10) + 48;
-					//cout << "po dodaniu: " << wynik.wsk[i]  << endl;
-					 
-				}
-				
-				if(tmpa >= 0 && tmpb < 0){
-					wynik.wsk[i] = ((this->wsk[tmpa] - 48) % 10) + 48;
-				
-				}
-				
-				if(tmpa < 0 && tmpb >= 0){
-					wynik.wsk[i] = ((b.wsk[tmpb] - 48) % 10) + 48;
-				
-				}
-				
-				if(dycha){
-				
-						wynik.wsk[i] += 1;
-						dycha = false;
-					
-					
-					//cout << "dycha na i =" << i-1  << "bo suma: " << this->wsk[tmpa] + b.wsk[tmpb] - 96 << endl;
-					
-				}
-				if(wynik.wsk[i] == ':'){
-					wynik.wsk[i] = '0';
-					dycha = true;
-				}
-				//if(wynik.wsk[i] == 'A'){
-				//	wynik.wsk[i] = ' ';
-				//}
-				
-				if((this->wsk[tmpa] + b.wsk[tmpb] - 96) > 9 && this->wsk[tmpa] < 57 && b.wsk[tmpb] < 57){
-					dycha = true;
-					
-					//cout << "dycha na i =" << i-1  << "bo suma: " << this->wsk[tmpa] + b.wsk[tmpb] - 96 << endl;
-				}
-				cout << tmpa << " " << tmpb << " " << dycha << endl;
-				if((tmpa == 0 || tmpb == 0) && dycha){
-					poprawka = true;
-					popr = i-1;
-					cout << "popr na " << i << endl;
-				}
-				
-				if(i == 1 && dycha){
-					wynik.wsk[0] == '1';
-				}
-			//	if (this->wsk[tmpa] - 48 <= 9 || b.wsk[tmpb] - 48 <= 9){
-			//		dycha = false;
-			//2	}
-				
-				//cout << (this->wsk[tmpa] + b.wsk[tmpb] - 96) % 10 << " ";
-				tmpa--;
-				tmpb--;
+			wynik.wsk[0] = '0';
+			for(i=1; i <= rozmiar; ++i){
+				wynik.wsk[i] = temp[i-1];  //przepisanie dluzszej liczby do wyniku
 			}
+			
+			i = rozmiar;
+			j = mniejszy-1;
+			
+			while(j>=0){  //petla tylko na dlugosc krotszej liczby
+				
 
-			//cout << endl;
-			/*for(int i=0; i <= rozmiar; ++i){
-				cout << tab[i];
+				if(wynik.wsk[i] + tempmin[j] - 96 > 9){
+					dycha = true;
+					
+				}
+				
+				k = i;
+				while(dycha){
+					wynik.wsk[k-1] += 1;
+					if(wynik.wsk[k-1] - 48 == 10){
+						wynik.wsk[k-1] = '0';
+						k--;
+					}
+					else{
+						dycha = false;
+					}
+				}
+				
+				wynik.wsk[i] = (wynik.wsk[i] + tempmin[j] - 96) % 10 + 48;
+				
+
+				i--;
+				j--;
+
 			}
-			*/
-			//cout << endl;
-			
+		
 			return wynik;
 		}
 };
 
 
 
+class wieksza_liczba : public duza_liczba{
+	
+	public:
+		
+		wieksza_liczba& operator*(wieksza_liczba &b){
+			
+			static wieksza_liczba wynik;
+			wieksza_liczba temp;
+			int wiekszy, i, j, tmp = 1;
+			
+			if (this->r > b.r){
+				temp = b;
+				wiekszy = this->r;
+			}
+			else{
+				temp = *this;
+				wiekszy = b.r;
+			}
+			
+			wynik.wsk = new char[wiekszy + temp.r + 1];
+			wynik.r = wiekszy + temp.r + 1;
+			
+			for(int z = 0; z < wynik.r; z++){
+				wynik.wsk[z] = '0';
+			}
+
+			
+
+			
+			i = 0;
+			
+			while(i <= temp.r){
+				
+				tmp = 1;
+				
+				for(int w = 0; w < temp.r - i; w++){
+					tmp *= 10;
+				}
+				
+				tmp = tmp * (temp.wsk[i] - 48);
+				
+				for(j = 0; j < tmp; j++){
+					wynik = (wynik + temp);
+				}
+				
+				i++;
+				
+			}
+			
+			wynik += temp;
+			
+			return wynik;	
+		}
+	
+};
+
 
 
 int main() {
 	
-	duza_liczba a,c,d;
+	wieksza_liczba a,c,d;
 	
 	cin >> a;
 	cin >> c;
 
-	d = (a+c);
+	d = (a*c);
 
 	cout << a;
 	cout << c;
