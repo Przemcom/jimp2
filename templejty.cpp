@@ -313,10 +313,16 @@ class lista{
 		
 		el<T> *wsk,*wsk2;
 		
+		if(this->pierwszy == NULL){
+			pomocnicza = b;
+			return pomocnicza;
+		}
+		
 		pomocnicza=*this;
 		
 		wsk = b.pierwszy;
 		wsk2 = pomocnicza.pierwszy;
+		
 		while(wsk2->nast!=NULL){
 			wsk2 = wsk2->nast;
 		}
@@ -410,19 +416,21 @@ class lista{
 	}	
 };
 
+int tablica[100];
 
 int main(int argc, char** argv) {
 	
-	//lista<int> a,b,c;
-	lista<Macierz> c;
+	lista<Macierz> a,b,c;
+	//lista<Macierz> d;
 	//cin>>a>>a>>a>>a>>a;
-	//cin>>b>>b>>b;
+	cin>>b>>b;
+	cin>>a>>a>>a;
 	
+	cout<<"lista a: "<< a << endl;
+	cout<<"lista b: "<< b << endl;
+	c = (b+a);
+	c = (b+a);
 	
-	//cout<<"lista a: "<< a << endl;
-	//cout<<"lista b: "<< b << endl;
-	//c = (a+b);
-	cin >> c >> c >> c >> c >> c;
 	cout<<"lista c: "<< c << endl;
 	
 	cout<<"sortowanie listy c "<<endl;
@@ -430,7 +438,12 @@ int main(int argc, char** argv) {
 	
 	cout<<c;
 	
+	//cin >> d >> d >> d >> d >> d;
+	//cout << "lista d: " << endl << d << endl;
 	
+	//d.sortuj();
+	
+	//cout << "posortowana lista d: " << endl << d;
 	
 	return 0;
 }
