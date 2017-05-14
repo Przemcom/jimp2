@@ -96,7 +96,7 @@ class duza_liczba{
 		
 		
 		
-		duza_liczba& operator+(duza_liczba &b){
+		duza_liczba& operator+(duza_liczba &a, duza_liczba &b){
 			
 			int rozmiar, mniejszy, i, j, k;
 			bool dycha = false;
@@ -110,17 +110,17 @@ class duza_liczba{
 				wynik.~duza_liczba();
 			}
 			//*******************ustawiam wskazniki na krotsza i dluzsza liczbe**************************
-			if(this->r > b.r){
-				rozmiar = this->r;
+			if(a.r > b.r){
+				rozmiar = a.r;
 				mniejszy = b.r;
-				temp = this->wsk;
+				temp = a.wsk;
 				tempmin = b.wsk;
 			}
 			else{
 				rozmiar = b.r;
-				mniejszy = this->r;
+				mniejszy = a.r;
 				temp = b.wsk;
-				tempmin = this->wsk;
+				tempmin = a.wsk;
 			}
 			//____________________________________________________________________________________________
 			
@@ -166,11 +166,19 @@ class duza_liczba{
 		
 			return wynik;
 		}
+		
+		duza_liczba& operator+=(duza_liczba &b){
+			
+			return (*this + b);
+			
+			
+			
+		}
 };
 
 
 
-class wieksza_liczba : public duza_liczba{
+/*class wieksza_liczba : public duza_liczba{
 	
 	public:
 		
@@ -226,19 +234,23 @@ class wieksza_liczba : public duza_liczba{
 	
 };
 
-
+*/
 
 int main() {
 	
-	wieksza_liczba a,c,d;
+	duza_liczba a,c,d;
 	
 	cin >> a;
 	cin >> c;
 
-	d = (a*c);
+	d = (a+c);
 
 	cout << a;
 	cout << c;
+	cout << d;
+	
+	d+=c;
+	
 	cout << d;
 	
 	return 0;
